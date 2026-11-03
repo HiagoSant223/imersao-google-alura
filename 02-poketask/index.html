@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokéTask • Pokédex de Missões</title>
+  
+  <!-- Fontes do Google Fonts: Press Start 2P (Pixel RPG) e Plus Jakarta Sans (Alta Legibilidade) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="pokedex-corpo">
+    <!-- Topo da Pokédex: Sensores e Luzes LED Clássicas -->
+    <header class="pokedex-topo">
+      <div class="sensor-principal-container">
+        <div class="sensor-principal" title="Sensor Óptico Principal">
+          <div class="brilho-sensor"></div>
+        </div>
+      </div>
+      <div class="leds-container">
+        <span class="led led-vermelho" title="Status LED"></span>
+        <span class="led led-amarelo" title="Processamento"></span>
+        <span class="led led-verde" title="Pronto"></span>
+      </div>
+      <div class="pokedex-linha-relevo"></div>
+    </header>
+
+    <!-- Tela Principal da Pokédex (Moldura Externa) -->
+    <div class="pokedex-tela-moldura">
+      <div class="respiro-topo-tela">
+        <span class="indicador-som"></span>
+        <span class="indicador-som"></span>
+      </div>
+
+      <!-- Display Digital Interno (LCD) -->
+      <div class="pokedex-display">
+        <!-- Título do Sistema Pokédex -->
+        <div class="display-cabecalho">
+          <div class="tag-sistema">POKÉ-TASK OS // V.3.8</div>
+          <h1 class="titulo-pokedex">DIÁRIO DE MISSÕES</h1>
+          <p class="frase-rpg" id="frase-rpg">Carregando dados do treinador...</p>
+        </div>
+
+        <!-- Barra de Progresso / EXP do Treinador -->
+        <div class="barra-exp-container" aria-label="Progresso das missões">
+          <div class="exp-rotulo-linha">
+            <span class="exp-texto">EXP DE MISSÕES:</span>
+            <span class="exp-porcentagem" id="exp-porcentagem">0%</span>
+          </div>
+          <div class="barra-exp-fundo">
+            <div class="barra-exp-preenchimento" id="barra-exp" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Formulário para Registrar Nova Missão -->
+        <form id="form-tarefa" class="form-tarefa">
+          <div class="input-grupo">
+            <input 
+              type="text" 
+              id="input-tarefa" 
+              placeholder="Registrar nova missão de treino..." 
+              autocomplete="off"
+            >
+            <button type="submit" id="btn-adicionar" class="btn-pokebola">
+              <!-- Ícone SVG de Pokébola Original -->
+              <svg class="icone-pokebola" viewBox="0 0 24 24" width="22" height="22">
+                <circle cx="12" cy="12" r="10" fill="#dc2626" />
+                <path d="M2 12 A10 10 0 0 0 22 12 Z" fill="#f8fafc" />
+                <rect x="2" y="10.8" width="20" height="2.4" fill="#1e293b" />
+                <circle cx="12" cy="12" r="3.6" fill="#1e293b" />
+                <circle cx="12" cy="12" r="2.2" fill="#ffffff" />
+                <circle cx="12" cy="12" r="1" fill="#e2e8f0" />
+              </svg>
+              <span>Capturar</span>
+            </button>
+          </div>
+          <span id="mensagem-erro" class="mensagem-erro" aria-live="polite"></span>
+        </form>
+
+        <!-- Painel de Status RPG (Pendentes e Concluídas) -->
+        <section class="painel-contadores" aria-label="Status do Treinador">
+          <div class="status-box pendentes">
+            <div class="status-cabecalho">MISSÕES ATIVAS</div>
+            <div class="status-conteudo">
+              <span class="icone-status">⚔️</span>
+              <strong id="contador-pendentes" class="contador-valor pendentes">0</strong>
+            </div>
+          </div>
+          <div class="status-box concluidas">
+            <div class="status-cabecalho">CONCLUÍDAS</div>
+            <div class="status-conteudo">
+              <span class="icone-status">🏆</span>
+              <strong id="contador-concluidas" class="contador-valor concluidas">0</strong>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lista de Missões -->
+        <main class="container-missoes">
+          <ul id="lista-tarefas" class="lista-tarefas" aria-live="polite">
+            <!-- Itens inseridos dinamicamente pelo script.js -->
+          </ul>
+
+          <!-- Estado Vazio Temático -->
+          <div id="estado-vazio" class="estado-vazio">
+            <div class="pokebola-radar">
+              <div class="radar-pulso"></div>
+              <div class="radar-icone">⚡</div>
+            </div>
+            <p class="estado-vazio-titulo">NENHUMA MISSÃO NO RADAR</p>
+            <p class="estado-vazio-sub">Cadastre um objetivo acima para iniciar sua jornada Pokémon!</p>
+          </div>
+        </main>
+      </div>
+
+      <!-- Rodapé da Moldura da Tela com Botões Físicos da Pokédex -->
+      <footer class="moldura-rodape">
+        <div class="botao-vermelho-redondo"></div>
+        <div class="linhas-altofalante">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="direcional-dpad">
+          <div class="dpad-centro"></div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Importação da Lógica JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

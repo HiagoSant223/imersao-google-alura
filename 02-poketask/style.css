@@ -1,0 +1,808 @@
+/* ==========================================================================
+   ESTILOS POKÉDEX (CSS3) - IDENTIDADE VISUAL POKÉMON RPG
+   ========================================================================== */
+
+:root {
+  /* Paleta Pokémon Clássica */
+  --pokedex-vermelho: #dc2626;
+  --pokedex-vermelho-escuro: #991b1b;
+  --pokedex-vermelho-sombra: #7f1d1d;
+  --pokedex-amarelo: #facc15;
+  --pokedex-azul-sensor: #0284c7;
+  --pokedex-azul-claro: #38bdf8;
+  --pokedex-azul-led: #60a5fa;
+
+  /* Display e Telas LCD */
+  --tela-moldura-fundo: #334155;
+  --tela-moldura-borda: #1e293b;
+  --tela-lcd-fundo: #0f172a;
+  --tela-lcd-borda: #0284c7;
+  --tela-texto-primario: #f8fafc;
+  --tela-texto-secundario: #94a3b8;
+  --tela-verde-exp: #10b981;
+  --tela-verde-exp-brilho: #34d399;
+
+  /* Cards de Missão */
+  --missao-fundo: #1e293b;
+  --missao-borda: #334155;
+  --missao-hover-borda: #38bdf8;
+  --missao-hover-fundo: #242e42;
+  --missao-concluida-fundo: #131d2e;
+  --missao-concluida-texto: #64748b;
+  --missao-concluida-borda: #1e293b;
+
+  /* Fontes */
+  --fonte-pixel: 'Press Start 2P', monospace, sans-serif;
+  --fonte-geral: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Sombras e Efeitos */
+  --sombra-pokedex: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 4px #7f1d1d;
+  --sombra-display: inset 0 3px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fonte-geral);
+  background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
+  color: var(--tela-texto-primario);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 16px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   CHASSIS EXTERNO DA POKÉDEX
+   ========================================================================== */
+
+.pokedex-corpo {
+  background: linear-gradient(160deg, var(--pokedex-vermelho) 0%, #b91c1c 70%, var(--pokedex-vermelho-escuro) 100%);
+  width: 100%;
+  max-width: 580px;
+  border-radius: 36px 36px 28px 28px;
+  box-shadow: var(--sombra-pokedex);
+  border: 5px solid #ef4444;
+  border-bottom: 8px solid var(--pokedex-vermelho-sombra);
+  padding: 24px 22px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linha de relevo diagonal característica da Pokédex */
+.pokedex-corpo::before {
+  content: "";
+  position: absolute;
+  top: 92px;
+  right: -20px;
+  width: 140px;
+  height: 20px;
+  background: var(--pokedex-vermelho-sombra);
+  transform: rotate(-35deg);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   TOPO DA POKÉDEX: SENSOR E LUZES LED
+   ========================================================================== */
+
+.pokedex-topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 14px;
+  border-bottom: 4px solid var(--pokedex-vermelho-sombra);
+  position: relative;
+}
+
+/* Sensor Óptico Grande (Câmera Azul) */
+.sensor-principal-container {
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 50%;
+  border: 3px solid #64748b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.sensor-principal {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #7dd3fc 0%, var(--pokedex-azul-sensor) 55%, #0369a1 100%);
+  border: 2.5px solid #0284c7;
+  position: relative;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.7);
+  animation: pulso-sensor 3s infinite alternate ease-in-out;
+}
+
+@keyframes pulso-sensor {
+  0% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+  100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.9); }
+}
+
+.brilho-sensor {
+  position: absolute;
+  top: 6px;
+  left: 9px;
+  width: 13px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+/* LEDs Miniaturas: Vermelho, Amarelo, Verde */
+.leds-container {
+  display: flex;
+  gap: 10px;
+}
+
+.led {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.led-vermelho {
+  background: radial-gradient(circle at 35% 35%, #fca5a5, #ef4444);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+}
+
+.led-amarelo {
+  background: radial-gradient(circle at 35% 35%, #fef08a, var(--pokedex-amarelo));
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.7);
+}
+
+.led-verde {
+  background: radial-gradient(circle at 35% 35%, #86efac, #22c55e);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+}
+
+/* ==========================================================================
+   TELA DA POKÉDEX: MOLDURA E DISPLAY LCD
+   ========================================================================== */
+
+.pokedex-tela-moldura {
+  background: var(--tela-moldura-fundo);
+  border: 4px solid var(--tela-moldura-borda);
+  border-radius: 18px 18px 30px 18px;
+  padding: 16px 16px 14px;
+  box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.15), 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.respiro-topo-tela {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.indicador-som {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 1px solid #475569;
+}
+
+/* Display LCD Interno */
+.pokedex-display {
+  background-color: var(--tela-lcd-fundo);
+  border: 3px solid #0f172a;
+  border-radius: 12px;
+  box-shadow: var(--sombra-display);
+  padding: 22px 18px;
+  position: relative;
+}
+
+/* Efeito sutil de linhas de scanline de display eletrônico */
+.pokedex-display::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.015),
+    rgba(255, 255, 255, 0.015) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+/* Cabeçalho do Display */
+.display-cabecalho {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.tag-sistema {
+  font-family: var(--fonte-pixel);
+  font-size: 0.58rem;
+  color: var(--pokedex-amarelo);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(250, 204, 21, 0.1);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  border-radius: 4px;
+}
+
+.titulo-pokedex {
+  font-family: var(--fonte-pixel);
+  font-size: 1.05rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  margin-bottom: 6px;
+}
+
+.frase-rpg {
+  font-size: 0.85rem;
+  color: var(--pokedex-azul-claro);
+  font-weight: 600;
+  min-height: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   BARRA DE EXP / PROGRESSO RPG
+   ========================================================================== */
+
+.barra-exp-container {
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.exp-rotulo-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--fonte-pixel);
+  font-size: 0.65rem;
+  color: var(--pokedex-amarelo);
+  margin-bottom: 6px;
+}
+
+.barra-exp-fundo {
+  background: #090d16;
+  height: 12px;
+  border-radius: 6px;
+  border: 1.5px solid #334155;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.barra-exp-preenchimento {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #06b6d4 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE ENTRADA & BOTÃO POKÉBOLA
+   ========================================================================== */
+
+.form-tarefa {
+  margin-bottom: 18px;
+}
+
+.input-grupo {
+  display: flex;
+  gap: 8px;
+}
+
+.input-grupo input {
+  flex: 1;
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 12px 14px;
+  font-family: var(--fonte-geral);
+  font-size: 0.94rem;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-grupo input::placeholder {
+  color: var(--tela-texto-secundario);
+  font-size: 0.88rem;
+}
+
+.input-grupo input:focus {
+  border-color: var(--pokedex-azul-claro);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+  background-color: #242f42;
+}
+
+/* Botão Estilo Pokébola */
+.btn-pokebola {
+  background: linear-gradient(145deg, #ef4444, #dc2626);
+  color: #ffffff;
+  border: 2px solid #b91c1c;
+  border-bottom: 4px solid #7f1d1d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-family: var(--fonte-pixel);
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-pokebola:hover {
+  background: linear-gradient(145deg, #f87171, #ef4444);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.35);
+}
+
+.btn-pokebola:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.icone-pokebola {
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.btn-pokebola:hover .icone-pokebola {
+  transform: rotate(45deg);
+}
+
+/* Mensagem de Erro */
+.mensagem-erro {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f87171;
+  margin-top: 6px;
+  min-height: 1.2rem;
+}
+
+/* ==========================================================================
+   PAINEL DE STATUS (MISSÕES ATIVAS / CONCLUÍDAS)
+   ========================================================================== */
+
+.painel-contadores {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.status-box {
+  flex: 1;
+  background: #182234;
+  border: 2px solid #29384d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.status-cabecalho {
+  font-family: var(--fonte-pixel);
+  font-size: 0.58rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.status-box.pendentes .status-cabecalho {
+  color: var(--pokedex-amarelo);
+}
+
+.status-box.concluidas .status-cabecalho {
+  color: var(--tela-verde-exp-brilho);
+}
+
+.status-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.icone-status {
+  font-size: 1.1rem;
+}
+
+.contador-valor {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: var(--fonte-geral);
+}
+
+.contador-valor.pendentes {
+  color: var(--pokedex-amarelo);
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
+}
+
+.contador-valor.concluidas {
+  color: var(--tela-verde-exp-brilho);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   LISTA DE MISSÕES (CARDS ESTILO RPG)
+   ========================================================================== */
+
+.container-missoes {
+  min-height: 160px;
+}
+
+.lista-tarefas {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Barra de rolagem estilizada */
+.lista-tarefas::-webkit-scrollbar {
+  width: 6px;
+}
+.lista-tarefas::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 4px;
+}
+.lista-tarefas::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+/* Card Individual de Missão */
+.item-tarefa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background-color: var(--missao-fundo);
+  border: 2px solid var(--missao-borda);
+  border-left: 6px solid var(--pokedex-azul-sensor);
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  animation: surgimento-missao 0.25s ease-out;
+}
+
+@keyframes surgimento-missao {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.item-tarefa:hover {
+  background-color: var(--missao-hover-fundo);
+  border-color: var(--missao-hover-borda);
+  border-left-color: var(--pokedex-amarelo);
+  transform: translateX(3px);
+}
+
+/* Lado Esquerdo: Checkbox Pokébola + Texto */
+.item-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Checkbox Customizado Inspirado na Pokébola */
+.checkbox-tarefa {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #64748b;
+  background: #334155;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.checkbox-tarefa:hover {
+  border-color: var(--pokedex-amarelo);
+  transform: scale(1.1);
+}
+
+/* Quando marcado (Capturado): Pokébola com Cores Vivas */
+.checkbox-tarefa:checked {
+  background: linear-gradient(180deg, #ef4444 0%, #ef4444 48%, #1e293b 48%, #1e293b 52%, #f8fafc 52%, #f8fafc 100%);
+  border-color: #0f172a;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  animation: pulso-captura 0.35s ease;
+}
+
+.checkbox-tarefa:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border: 2px solid #1e293b;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes pulso-captura {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.texto-tarefa {
+  font-size: 0.94rem;
+  color: #f8fafc;
+  font-weight: 600;
+  word-break: break-word;
+  transition: all 0.25s ease;
+}
+
+/* Botão Excluir (Abandonar Missão) */
+.btn-remover {
+  background-color: transparent;
+  color: #94a3b8;
+  border: 1.5px solid #475569;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: var(--fonte-pixel);
+  font-size: 0.58rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+
+.btn-remover:hover {
+  background-color: #dc2626;
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.6);
+  transform: scale(1.05);
+}
+
+.btn-remover:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   DIFERENCIAÇÃO VISUAL: MISSÃO CONCLUÍDA (CAPTURADA)
+   ========================================================================== */
+
+.item-tarefa.concluida {
+  background-color: var(--missao-concluida-fundo);
+  border-color: var(--missao-concluida-borda);
+  border-left-color: var(--tela-verde-exp);
+  opacity: 0.72;
+}
+
+.item-tarefa.concluida:hover {
+  opacity: 0.9;
+  border-color: var(--tela-verde-exp);
+}
+
+.item-tarefa.concluida .texto-tarefa {
+  text-decoration: line-through;
+  text-decoration-color: #10b981;
+  color: var(--missao-concluida-texto);
+}
+
+/* Selo de Concluída */
+.item-tarefa.concluida::after {
+  content: "CAPTURADA";
+  font-family: var(--fonte-pixel);
+  font-size: 0.52rem;
+  color: var(--tela-verde-exp-brilho);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   ESTADO VAZIO (RADAR DE MISSÕES)
+   ========================================================================== */
+
+.estado-vazio {
+  text-align: center;
+  padding: 32px 14px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 2px dashed #334155;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.pokebola-radar {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 2px solid var(--pokedex-amarelo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.radar-pulso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--pokedex-amarelo);
+  animation: pulso-radar 2s infinite ease-out;
+}
+
+@keyframes pulso-radar {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.radar-icone {
+  font-size: 1.3rem;
+}
+
+.estado-vazio-titulo {
+  font-family: var(--fonte-pixel);
+  font-size: 0.72rem;
+  color: var(--pokedex-amarelo);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.estado-vazio-sub {
+  font-size: 0.84rem;
+  color: var(--tela-texto-secundario);
+}
+
+/* ==========================================================================
+   RODAPÉ DA MOLDURA: BOTÕES FÍSICOS E D-PAD
+   ========================================================================== */
+
+.moldura-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 6px;
+}
+
+.botao-vermelho-redondo {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b);
+  border-radius: 50%;
+  border: 2px solid #1e293b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.linhas-altofalante {
+  display: flex;
+  gap: 4px;
+}
+
+.linhas-altofalante span {
+  display: inline-block;
+  width: 28px;
+  height: 4px;
+  background: #1e293b;
+  border-radius: 2px;
+}
+
+.direcional-dpad {
+  width: 32px;
+  height: 32px;
+  background: #1e293b;
+  position: relative;
+  border-radius: 4px;
+}
+
+.direcional-dpad::before,
+.direcional-dpad::after {
+  content: "";
+  position: absolute;
+  background: #0f172a;
+}
+
+.direcional-dpad::before {
+  top: 11px; left: 0; width: 32px; height: 10px;
+}
+
+.direcional-dpad::after {
+  left: 11px; top: 0; width: 10px; height: 32px;
+}
+
+.dpad-centro {
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 8px; height: 8px;
+  background: #334155;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MOBILE)
+   ========================================================================== */
+
+@media (max-width: 520px) {
+  body {
+    padding: 12px 8px;
+  }
+
+  .pokedex-corpo {
+    padding: 16px 14px 20px;
+    border-radius: 24px;
+  }
+
+  .pokedex-display {
+    padding: 16px 12px;
+  }
+
+  .titulo-pokedex {
+    font-size: 0.88rem;
+  }
+
+  .input-grupo {
+    flex-direction: column;
+  }
+
+  .btn-pokebola {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .painel-contadores {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .item-tarefa {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn-remover {
+    margin-left: auto;
+  }
+}
